@@ -14,12 +14,12 @@ export class DemographicsComponent implements OnInit {
 
   userDetails:any = {};
   demographicsDetails :any;
-  userName:string='';
+  username:string='';
   constructor(private registrationService:RegistrationService,private router:Router,public loginService:LoginService) { }
 
   ngOnInit(): void {
     this.userDetails = JSON.parse(sessionStorage.getItem('userData') || '');
-    this.userName = this.userDetails.username;
+    this.username = this.userDetails.username;
   }
 
  
@@ -54,17 +54,13 @@ export class DemographicsComponent implements OnInit {
  
     this.demographicsDetails =this.patientForm.value;
 
-    this.demographicsDetails.username = this.userDetails.username;
-    this.demographicsDetails.email = this.userDetails.email;
-    this.demographicsDetails.dob = this.userDetails.dob;
-
     this.userDetails.demographics = this.demographicsDetails;
     
     console.log(this.demographicsDetails);
     console.log(this.userDetails);
 
     
-   this.registrationService.updateDemographics(this.userDetails.username,this.userDetails).subscribe(data=>
+   this.registrationService.updateDemographics(this.userDetails.username,this.userDetails.demographics).subscribe(data=>
     {
        console.log(data);
        if(data && data.username!="")

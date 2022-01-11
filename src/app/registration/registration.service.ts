@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 export class RegistrationService {
   appointmentsData:any[]=[];
 
-  url: any = 'http://localhost:3000/registrationDetails';
+  url: any = '/users/registration';
   constructor(private http: HttpClient) { }
 
   addPerson(person: UserDetails): Observable<any> {
@@ -90,10 +90,10 @@ export class RegistrationService {
     return this.http.put<any>(this.url + '/' + id, body);
   }
   updateDemographics(id: any, body: any) {
-    return this.http.put<any>('http://localhost:3000/registrationDetails' + '/' + id, body);
+    return this.http.put<any>('/users/registration' + '/' + id, body);
   }
   getPhysicianData() {
-    let configUrl = 'http://localhost:3000/physician';
+    let configUrl = 'users/physician';
 
     return this.http.get<any>(configUrl);
 
