@@ -47,14 +47,15 @@ constructor(private messageService: MessageService, private registrationService:
     this.currentMedDetails = this.userDetails.currentMedications;
     this.allergyDetails = this.userDetails.allergies;
 
-    this.registrationService.getMedicinesData().subscribe((data:any[])=>
+    this.registrationService.getMedicinesData().subscribe((data:any)=>
   {
-    this.med = data;
+    this.med = data.data;
   });
 
-  this.registrationService.getAllergiesData().subscribe((data:any[])=>
+  this.registrationService.getAllergiesData().subscribe((data:any)=>
   {
-    this.allergiesData = data;
+    this.allergiesData = data.data;
+    
   });
 
   }

@@ -137,11 +137,11 @@ export class RegistrationService {
   }
   
   getMedicinesData(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:3000/medicines')
+    return this.http.get<any[]>('/data/medicines')
   }
 
 getAllergiesData(): Observable<any[]> {
-  return this.http.get<any[]>('http://localhost:3000/allergies')
+  return this.http.get<any[]>('/data/allergies')
 }
 
 updateMedications(id: any, body: any) {
