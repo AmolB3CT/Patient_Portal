@@ -167,7 +167,7 @@ constructor(private messageService: MessageService, private registrationService:
   
   submitAllData(){
     this.userDetails.currentMedications = this.currentMedDetails;
-    this.registrationService.updateDemographics(this.userDetails.username,this.userDetails).subscribe(data=>
+    this.registrationService.updateMedications(this.userDetails.username,this.currentMedDetails).subscribe(data=>
       {
         if(data)
         {
@@ -182,7 +182,7 @@ constructor(private messageService: MessageService, private registrationService:
     this.medForm.reset();
 
     this.userDetails.allergies = this.allergyDetails;
-    this.registrationService.updateDemographics(this.userDetails.username,this.userDetails).subscribe(data=>
+    this.registrationService.updateAllergies(this.userDetails.username,this.allergyDetails).subscribe(data=>
       {
         if(data)
         {

@@ -74,7 +74,7 @@ export class ImmunizationComponent implements OnInit {
   submit_med(){
     console.log("clcies")
     this.userDetails.immunization = this.immunization;
-    this.registrationService.updateDemographics(this.userDetails.username,this.userDetails).subscribe(data=>
+    this.registrationService.updateimmunization(this.userDetails.username,this.userDetails.immunization).subscribe(data=>
       {
         if(data)
         {

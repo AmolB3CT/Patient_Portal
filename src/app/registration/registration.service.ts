@@ -145,10 +145,13 @@ getAllergiesData(): Observable<any[]> {
 }
 
 updateMedications(id: any, body: any) {
-  return this.http.put<any>('http://localhost:3000/registrationDetails' + '/' + id, body);
+  return this.http.put<any>('users/currentMedications' + '/' + id, body);
+}
+updateAllergies(id: any, body: any) {
+  return this.http.put<any>('users/allergies' + '/' + id, body);
 }
 updateimmunization(id: any, body: any) {
-  return this.http.patch<any>('http://localhost:3000/registrationDetails' + '/' + id, body);
+  return this.http.put<any>('users/immunization' + '/' + id, body);
 }
 getTickets(): Observable<any[]> {
   return this.http.get<any[]>('http://localhost:3000/tickets')
