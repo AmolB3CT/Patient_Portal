@@ -22,23 +22,23 @@ export class RegistrationService {
     return this.http.post('/users/registration', body, { 'headers': headers });
   }
 
-  getData(): Observable<UserDetails[]> {
-    return this.http.get<UserDetails[]>('/users/registration')
+  getData(): Observable<any[]> {
+    return this.http.get<any[]>('/users/registration')
   }
 
   getPhysicianDataById(username: string): Observable<any> {
-    let configUrl = 'http://localhost:3000/physician';
+    let configUrl = '/data/physicians';
 
     return this.http.get<any>(`${configUrl}/${username}`);
 
   };
 
-  addLoginData(u: UserDetails): Observable<any> {
+  addLoginData(u: any): Observable<any> {
 
     const headers = { 'Content-Type': 'application/json' }
     const body = JSON.stringify(u);
     // console.log(body)
-    return this.http.post('http://localhost:3000/users/register', body, { 'headers': headers })
+    return this.http.post('/data/physicians', body, { 'headers': headers })
   }
   getPatientDataById(physicianname: string, patientname: string,patient_time: string): Observable<any> {
 
@@ -87,13 +87,13 @@ export class RegistrationService {
 
   updateActiveStatus(id: any, body: any) {
     console.log(id)
-    return this.http.put<any>(this.url + '/' + id, body);
+    return this.http.put<any>('/users/updateFlag' + '/' + id, body);
   }
   updateDemographics(id: any, body: any) {
     return this.http.put<any>('/users/registration' + '/' + id, body);
   }
   getPhysicianData() {
-    let configUrl = 'users/physician';
+    let configUrl = '/data/physicians';
 
     return this.http.get<any>(configUrl);
 
@@ -116,8 +116,8 @@ export class RegistrationService {
   addPhysician(physican:UserDetails): Observable<any> {
     const headers = { 'Content-Type': 'application/json'}  
     const body=JSON.stringify(physican);
-    // console.log(body)
-    return this.http.post('http://localhost:3000/physician', body,{'headers':headers});
+    console.log(body)
+    return this.http.post('/data/physicians', body,{'headers':headers});
   }
 
   updateReport(id: any, body: any) {

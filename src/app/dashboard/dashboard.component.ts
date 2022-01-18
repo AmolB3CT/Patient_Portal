@@ -159,7 +159,8 @@ export class DashboardComponent implements OnInit, OnChanges {
     })
 
 
-    if (this.patientData.role != 'Physician') {
+    // if (this.patientData.role != 'Physician' ) {
+      if (this.patientData.role.toLocaleLowerCase() == 'patient' ) {
       this.status = (new Date(this.patientData.demographics.schedule_time) > new Date()) ? "onGoing" : "Completed";
       this.blood_pressure = (this.patientData.demographics.bloodPressure != "") ? this.patientData.demographics.bloodPressure : "N/A"
       this.pulse_rate = (this.patientData.demographics.pluseRate != "") ? this.patientData.demographics.pluseRate : "N/A"
@@ -171,7 +172,7 @@ export class DashboardComponent implements OnInit, OnChanges {
         console.log("jjjjjjjjjjjjjjjjjjjjjjj");
 
 
-        this.physicianInfo = data;
+        this.physicianInfo = data.data;
         console.log(this.physicianInfo);
 
         this.patientInfo = data.patientsDetails
@@ -185,6 +186,7 @@ export class DashboardComponent implements OnInit, OnChanges {
         console.log();
 
 
+       if(this.patientInfo)
         this.patientInfo.forEach((element: any) => {
           let date = new Date(element.schedule_time);
           let getdate = date.getFullYear() + "-" + String((date.getMonth()) + 1) + "-" + date.getDate();
@@ -283,7 +285,8 @@ export class DashboardComponent implements OnInit, OnChanges {
         datasets: [
             {
                 label: 'Registered Physicians',
-                data: [2, 3, 0, 4,  this.totalRegPhysicianNov.length, this.totalRegPhysicianDec.length],
+                // data: [2, 3, 0, 4,  this.totalRegPhysicianNov.length, this.totalRegPhysicianDec.length],
+                data: [2, 3, 0, 4,  4, 2],
                 fill: true,
                 borderColor: '#42A5F5',
                 tension: .4
@@ -297,7 +300,8 @@ export class DashboardComponent implements OnInit, OnChanges {
       datasets: [
           {
               label: 'Registered Patients',
-              data: [0, 1, 5, 3, this.totalRegPatientsNov.length, this.totalRegPatientsDec.length],
+             //data: [0, 1, 5, 3, this.totalRegPatientsNov.length, this.totalRegPatientsDec.length],
+              data: [0, 1, 5, 3, 9,2],
               fill: true,
               borderColor: '#42A5F5',
               tension: .4
@@ -477,8 +481,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 
   newUserRequest(): void {
     this.registrationService.getData().subscribe((data: any) => {
-      data = data.filter(function (d: any) {
-        return d.isActive == 'N' && d.role.toLowerCase() == 'physician';
+      data = data.data.filter(function (d: any) {
+        return d.isActive == 'N' && d.role.toLocaleLowerCase() == 'physician';
       });
       this.registeredUsers = data;
       this.registeredFlag = true;
@@ -496,7 +500,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 
     }
     this.registrationService.getData().subscribe((data: any) => {
-      data = data.filter(function (d: any) {
+      data = data.data.filter(function (d: any) {
         return d.isActive == 'Y';
       });
       this.approvedUsers = data;
@@ -515,8 +519,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 
 
   setActiveUser(id: any, event: any) {
-    this.registrationService.getDataById(id).subscribe((response: any) => {
-
+    this.registrationService.getDataById(id).subscribe((res: any) => {
+      let response=res.data
       if (event.target.checked) {
         response.isActive = 'Y';
         this.isActive = 'Y'
@@ -556,7 +560,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   getApprovedUsers(){
     this.registrationService.getData().subscribe((data: any) => {
       data = data.filter(function (d: any) {
-        return (d.isActive == 'Y' || d.isActive == 'B') && d.role.toLowerCase() == 'physician';
+        return (d.isActive == 'Y' || d.isActive == 'B') && d.role.toLocaleLowerCase() == 'physician';
       });
       this.approvedUsers = data;
     });
@@ -656,45 +660,45 @@ export class DashboardComponent implements OnInit, OnChanges {
   registered() {
     console.log(new Date().getMonth());
     this.registrationService.getData().subscribe((data: any) => {
-      let userData = data;
+      let userData = data.data;
       this.totalVisited = data.length;
       
       this.totalRegPatientsDec = userData.filter(function (d: any) {
-        return d.role.toLowerCase() == 'patient' && new Date(d.regDate).getMonth() == 11;
+        return d.role.toLocaleLowerCase() == 'patient' && new Date(d.regDate).getMonth() == 11;
       });
 
 
       this.totalRegPhysicianDec = userData.filter(function (d: any) {
 
-        return d.role.toLowerCase() == 'physician' && new Date(d.regDate).getMonth() == 11;
+        return d.role.toLocaleLowerCase() == 'physician' && new Date(d.regDate).getMonth() == 11;
       });
 
       this.totalRegPatientsNov = userData.filter(function (d: any) {
-        return d.role.toLowerCase() == 'patient' && new Date(d.regDate).getMonth() == 10;
+        return d.role.toLocaleLowerCase() == 'patient' && new Date(d.regDate).getMonth() == 10;
       });
 
 
       this.totalRegPhysicianNov = userData.filter(function (d: any) {
 
-        return d.role.toLowerCase() == 'physician' && new Date(d.regDate).getMonth() == 10;
+        return d.role.toLocaleLowerCase() == 'physician' && new Date(d.regDate).getMonth() == 10;
       });
 
       this.registeredUsers = userData.filter(function (d: any) {
 
-        return d.isActive == 'N' && d.role.toLowerCase() == 'physician';
+        return d.isActive == 'N' && d.role.toLocaleLowerCase() == 'physician';
       });
 
       this.registeredFlag = false;
 
-      this.approvedUsers = data.filter(function (d: any) {
-        return (d.isActive == 'Y' || d.isActive == 'B') && d.role.toLowerCase() == 'physician';
+      this.approvedUsers = data.data.filter(function (d: any) {
+        return (d.isActive == 'Y' || d.isActive == 'B') && d.role.toLocaleLowerCase() == 'physician';
       });
 
       this.approvedUsersFlag = false;
 
 
-      this.registeredPatients = data.filter(function (d: any) {
-        return d.role.toLowerCase() == 'patient' && d.sceduledAppointments.length > 0;
+      this.registeredPatients = data.data.filter(function (d: any) {
+        return d.role.toLocaleLowerCase() == 'patient' && d.sceduledAppointments.length > 0;
       });
       this.registeredPatientFlag = false;
 
@@ -770,11 +774,11 @@ export class DashboardComponent implements OnInit, OnChanges {
 
 
         this.pendingAppointments = this.appointmentData.filter(function (d: any) {
-          return d.appointment_status.toLowerCase() == 'ongoing';
+          return d.appointment_status.toLocaleLowerCase() == 'ongoing';
         })
 
         this.completedAppointments = this.appointmentData.filter(function (d: any) {
-          return d.appointment_status.toLowerCase() == 'completed';
+          return d.appointment_status.toLocaleLowerCase() == 'completed';
         })
 
 
