@@ -48,7 +48,7 @@ export class RegistrationService {
 
 
 
-    let configUrl = 'http://localhost:3000/physician';
+    let configUrl = '/data/physicians';
 
     console.log(this.http.get<any>(`${configUrl}/${physicianname}`))
 
@@ -59,10 +59,14 @@ export class RegistrationService {
 
         console.log("sdjk;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        console.log(response.patientsDetails.filter((item: any) => item.username == patientname));
+        console.log(response.data)
+
+        console.log(response.data.patientsDetails)
+
+        console.log(response.data.patientsDetails.filter((item: any) => item.username == patientname));
         
 
-        return response.patientsDetails.filter((item: any) => (item.username == patientname && item.schedule_time == patient_time));
+        return response.data.patientsDetails.filter((item: any) => (item.username == patientname && item.schedule_time == patient_time));
 
       })
 
@@ -104,7 +108,7 @@ export class RegistrationService {
     // console.log(body)
   addAppointmentData(id: any, body: any) {
     let Obj = new Observable()
-    return this.http.put('http://localhost:3000/physician' + '/' + id, body).pipe(map(res => { return res }))
+    return this.http.put('/data/shedule-appointment' + '/' + id, body).pipe(map(res => { return res }))
   }
 
   addAppointmentDataPach(id: any, body: any) {

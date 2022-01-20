@@ -26,7 +26,7 @@ export class PatientDetailsComponent implements OnInit {
 
     this.userDetail = JSON.parse(sessionStorage.getItem('userData') || '');
       this.registrationService.getPhysicianDataById(this.userDetail.username).subscribe((data:any) =>{
-        this.aptDetails = data.patientsDetails;
+        this.aptDetails = data.data.patientsDetails;
         for(var i=0;i<this.aptDetails.length;i++){
           this.aptDetails[i].status = (new Date(this.aptDetails[i].schedule_time) > new Date()) ? "Ongoing" : "Completed";  
         console.log(this.aptDetails)}

@@ -175,7 +175,7 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.physicianInfo = data.data;
         console.log(this.physicianInfo);
 
-        this.patientInfo = data.patientsDetails
+        this.patientInfo = data.data.patientsDetails
         console.log("this.patientInfothis.patientInfothis.patientInfo");
         console.log(this.patientInfo);
 
