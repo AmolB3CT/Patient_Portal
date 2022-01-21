@@ -111,6 +111,11 @@ export class RegistrationService {
     return this.http.put('/data/shedule-appointment' + '/' + id, body).pipe(map(res => { return res }))
   }
 
+  addVisitDetails(id: any, body: any) {
+    let Obj = new Observable()
+    return this.http.put('/data/visitDetails' + '/' + id, body).pipe(map(res => { return res }))
+  }
+
   addAppointmentDataPach(id: any, body: any) {
     return this.http.patch('http://localhost:3000/physician' + '/' + id, body).pipe(map(res => { return res }))
   }
@@ -133,11 +138,11 @@ export class RegistrationService {
   }
 
   getProcedureCodesData(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:3000/proCodes')
+    return this.http.get<any[]>('/data/proCodes')
   }
   
   getDaignosisCodesData(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:3000/diagCodes')
+    return this.http.get<any[]>('/data/diagCodes')
   }
   
   getMedicinesData(): Observable<any[]> {

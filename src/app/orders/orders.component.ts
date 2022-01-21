@@ -36,7 +36,7 @@ export class OrdersComponent implements OnInit {
 
   getOrders() {
     this.registrationService.getPhysicianData().subscribe((data: any) => {
-      this.physicianData = data
+      this.physicianData = data.data
       console.log(this.physicianData);
       this.physicianData.forEach((element,i) => {
         if(element.patientsDetails.find((item: any) => (item.username == this.userDetails.username)) != undefined && element.patientsDetails.find((item: any) => (item.username == this.userDetails.username)) != '' )

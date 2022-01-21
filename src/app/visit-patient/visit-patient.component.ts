@@ -59,11 +59,11 @@ export class VisitPatientComponent implements OnInit {
       }
     });
     this.registrationService.getPhysicianDataById(this.userDetail.username).subscribe((data:any) => {
-      console.log("data",data)
-      this.phyPatientDetails = data;
+      console.log("data",data.data)
+      this.phyPatientDetails = data.data;
 
 
-      console.log(data.patientsDetails.filter((item: any) => (item.username == this.patient_name && item.schedule_time == this.patient_time)))
+      console.log(data.data.patientsDetails.filter((item: any) => (item.username == this.patient_name && item.schedule_time == this.patient_time)))
       console.log("---------------------------------------------------");
       
       console.log(this.phyPatientDetails.patientsDetails.findIndex((item: any) => (item.username == this.patient_name && item.schedule_time == this.patient_time)));
@@ -92,19 +92,19 @@ export class VisitPatientComponent implements OnInit {
     medications: this.formBuilder.array([]),
   });
 
-  this.registrationService.getProcedureCodesData().subscribe((data:any[])=>
+  this.registrationService.getProcedureCodesData().subscribe((data:any)=>
   {
-    this.pcodes = data;
+    this.pcodes = data.data;
   });
 
-  this.registrationService.getDaignosisCodesData().subscribe((data:any[])=>
+  this.registrationService.getDaignosisCodesData().subscribe((data:any)=>
   {
-    this.dcodes = data;
+    this.dcodes = data.data;
   });
 
-  this.registrationService.getMedicinesData().subscribe((data:any[])=>
+  this.registrationService.getMedicinesData().subscribe((data:any)=>
   {
-    this.medProducts = data;
+    this.medProducts = data.data;
   });
 
 }
@@ -221,10 +221,9 @@ addnewmedicine() {
 
         console.log("Final22222222222222222222222");
 
-      console.log();
 
-      this.phyPatientDetails.patientsDetails[this.phyPatientDetails.patientsDetails.findIndex((item: any) => (item.username == this.patient_name && item.schedule_time == this.patient_time))] = this.patientData;
-      this.registrationService.addAppointmentData(this.userDetail.username,this.phyPatientDetails).subscribe(data=>{
+      // this.phyPatientDetails.patientsDetails[this.phyPatientDetails.patientsDetails.findIndex((item: any) => (item.username == this.patient_name && item.schedule_time == this.patient_time))] = this.patientData;
+      this.registrationService.addVisitDetails(this.userDetail.username,this.patientData).subscribe(data=>{
         console.log(data);
 
         setTimeout(() => {
